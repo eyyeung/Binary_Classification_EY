@@ -9,7 +9,7 @@
     - Use the cleaned data (clean_tac)
 
 ## Data Files
-* accelerameter data - all_accelerometer_data_pids_13.csv - not included in the data folder, go to [source](https://archive.ics.uci.edu/ml/datasets/Bar+Crawl%3A+Detecting+Heavy+Drinking) to download
+* accelerameter data - all_accelerometer_data_pids_13.csv - not included in the data folder, since it is too big, go to [source](https://archive.ics.uci.edu/ml/datasets/Bar+Crawl%3A+Detecting+Heavy+Drinking) to download
 * clean-tac data - 13 csv files inside the [data/clean_tac](/data/clean_tac) folder
 * phone_type - [phone_types.csv](/data/phone_types.csv) - contain info on which participant use iphone vs android
 * pids - [pids.txt](/data/pids.txt) - a file listing the participant codes
@@ -22,11 +22,11 @@
 * time domain features for accerlerator data - [result_time.csv](/data/output_files/result_time.csv)
 
 
-# Jupyter notebooks (contains all the codes, graphs, and models)
-* Important notebooks:
-    1. Start with [Bar_Crawl_import_initialEDA_featureEngineering.ipynb](/Bar_Crawl_import_initialEDA_featureEngineering.ipynb) - contains all graphs and code used to clean, preprocesse, perform initial EDA, engineer features, and produce the merged dataset used for model building
-    2. Go to [Bar_Crawl_finaldataEDA_modelTraining.ipynb](/Bar_Crawl_finaldataEDA_modelTraining.ipynb)-  contains graphs and codes for cleaning up the merged dataset, model building, model selection, and final summary
-        * all the models are trained here
+# Instruction
+## Jupyter notebooks contains all the codes, graphs, and models
+1. Start with [Bar_Crawl_import_initialEDA_featureEngineering.ipynb](/Bar_Crawl_import_initialEDA_featureEngineering.ipynb) - contains all graphs and code used to clean, preprocesse, perform initial EDA, engineer features, and produce the merged dataset used for model building
+2. Go to [Bar_Crawl_finaldataEDA_modelTraining.ipynb](/Bar_Crawl_finaldataEDA_modelTraining.ipynb)-  contains graphs and codes for cleaning up the merged dataset, model building, model selection, and final summary
+    * all the models are trained here
 * Extras:
     * [splitting_df_into_smaller_files.ipynb](/splitting_df_into_smaller_files.ipynb) - contains only the code use for splitting files into smaller sections
 
@@ -111,16 +111,19 @@
         * 93.2% accuracy on test set
         * 0.896 f1-score (out of 1)
 
-## Other things to think about
-* How to deploy the model?
-    - Want to be able to input a accerlerator and return prediction
+## Things to think about
+* How to deploy the model (real-life use case)
+    - Want to be able to read accerlerator data and return a prediction and warn the user when their TAC reading rises: This would require predicting TAC reading (regression) instead of a binary classification
+    - Even if it is a binary classification, want real-time prediction.
+* Alternative way to train/test split the data for model training and testing:
+    * Hold out 2 of the 13 participants as test set, then train the model on the 11.
 * What features to eliminate / add?
     * There are some features that are highly correlated with each other (multicollineary) that can be eliminated
         * Less of a problem for decision tree since it will randomly pick one as the important feature, but still should get rid of some
         * Can use Recursive Feature Elimination to eliminate some features
     * There are some features that can be added see above section - other potential features that are not engineered
 
-# Result
+## Result
 * Decision Tree model with 78 features
 * Binary classificaiton - intoxicated (case 1) or not intoxicated (case 0)
     * We have 67% not intoxicated out of 137333 rows (10s window)
