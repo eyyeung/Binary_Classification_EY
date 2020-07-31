@@ -128,3 +128,7 @@
     * **93.2% accuracy on test set**
     * **0.896 f1-score (out of 1)**
 
+|   | precision | recall | f1-score |   |
+|---|-----------|--------|----------|---|
+| not intoxicated | 0.96      | 0.94   | 0.95     |   |
+| intoxicated | 0.88      | 0.92   | 0.90     |   |
